@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员面板</title>
+</head>
+<body>
+<h2>管理员面板</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>用户名</th>
+        <th>状态</th>
+        <th>操作</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.course_status }}</td>
+        <td>
+            <form method="POST" action="/update_status/{{ user.id }}">
+                <select name="status">
+                    <option value="未购买" {% if user.course_status == '未购买' %}selected{% endif %}>未购买</option>
+                    <option value="购买" {% if user.course_status == '购买' %}selected{% endif %}>购买</option>
+                </select>
+                <input type="submit" value="更新状态">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="/logout">退出</a>
+
+</body>
+</html>
